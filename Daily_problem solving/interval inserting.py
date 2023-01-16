@@ -15,46 +15,51 @@
 #Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
 
 def insert_interval(inter, new):
-    stack = []
-    up = None
-    low = None
-    for i in range(len(inter)):
-        if inter[i][0] < new[0]and inter[i][1] < new[0]:
-            stack.append(inter[i])
+    low = []
+    high = []
+    upper = len(inter)-1
+    lower = 0
+    low_b = None
+    check_l = True
+    check_r = True
+    while lower <= upper:
+        check_l = True
+        check_r = True
 
-        elif inter[i][0] < new[0] and inter[i][1] > new[0]:
-             low = inter[i][0]
+        if inter[lower][1] < new[0]:
+            low.append(inter[lower])
+            print(low)
+            lower+= 1
+            check_l = False
+        if inter[upper][0] > new[1]:
+            high.append(inter[upper])
+            print(high)
+            upper-= 1
+            check_r = False
 
-        elif inter[i-1][1] < new[0] and inter[i][0]> new[0]:
-            low = new[0]
-        elif inter[i][0] < new[1] and inter[i+1][1] > new[1]:
+        if inter[lower][0]< new[0] and inter[lower][1]> new[0]:
+            low_b = [inter[lower][0]]
+            lower+= 1
+            check_l = False
+
+        if inter[upper][0]<=new[1] and inter[upper][1]> new[1]:
+            low_b.append(inter[upper][1])
+            upper-= 1
+            check_r = False
+
+        if check_r == True and check_l == True:
+            upper-= 1
+            lower+=1
             
-            up = inter[i][1]
-            stack.append([low,up])
-            if i+1< len(inter)-1:
-                stack.extend(inter[i+1:])
-                return stack
-           
-
-        elif inter[i][0] < new[1] and inter[i+1][1] > new[1]:
-            up = inter[i+1][1]
-            
-            stack.append([low,up])
-            if i+1< len(inter)-1:
-                stack.extend(inter[i+2:])
-                return stack
         
+    low.append(low_b)
+    low.extend(high[:])
+    return low
 
-            
-            
-        
-        
-    return stack
-
-intervals = [[1,3],[6,9]]
-new = [2,5]
-#intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
-#new = [4,8]
+#intervals = [[1,3],[6,9]]
+#new = [2,5]
+intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
+new = [4,8]
 
 print(insert_interval(intervals, new))
              
