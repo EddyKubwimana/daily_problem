@@ -19,31 +19,41 @@ def insert_interval(inter, new):
     high = []
     upper = len(inter)-1
     lower = 0
-    low_b = None
+    l = None
+    h = None
     check_l = True
     check_r = True
     while lower <= upper:
         check_l = True
         check_r = True
+        print(upper)
+        if inter[lower][1] == new[0] :
+            l = new[0]
 
         if inter[lower][1] < new[0]:
             low.append(inter[lower])
-            print(low)
             lower+= 1
             check_l = False
         if inter[upper][0] > new[1]:
             high.append(inter[upper])
-            print(high)
             upper-= 1
             check_r = False
 
         if inter[lower][0]< new[0] and inter[lower][1]> new[0]:
-            low_b = [inter[lower][0]]
+            l = inter[lower][0]
+            lower+= 1
+            check_l = False
+        if inter[lower][0]> new[0] and l == None:
+            l = new[0]
             lower+= 1
             check_l = False
 
         if inter[upper][0]<=new[1] and inter[upper][1]> new[1]:
-            low_b.append(inter[upper][1])
+            h = inter[upper][1]
+            upper-= 1
+            check_r = False
+        if inter[upper][0]<new[1] and h == None:
+            h = inter[upper][1]
             upper-= 1
             check_r = False
 
@@ -52,15 +62,14 @@ def insert_interval(inter, new):
             lower+=1
             
         
-    low.append(low_b)
+    low.append([l,h])
     low.extend(high[:])
     return low
 
-#intervals = [[1,3],[6,9]]
-#new = [2,5]
+#intervals = [[2,5],[6,9]]
+#new = [1,9]
 intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
-new = [4,8]
-
+new = [5,12]
 print(insert_interval(intervals, new))
              
         
