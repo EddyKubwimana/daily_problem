@@ -14,64 +14,24 @@
 #Output: [[1,2],[3,10],[12,16]]
 #Explanation: Because the new interval [4,8] overlaps with [3,5],[6,7],[8,10].
 
-def insert_interval(inter, new):
-    low = []
-    high = []
-    upper = len(inter)-1
-    lower = 0
-    l = None
-    h = None
-    check_l = True
-    check_r = True
-    while lower <= upper:
-        check_l = True
-        check_r = True
-        print(upper)
-        if inter[lower][1] == new[0] :
-            l = new[0]
-
-        if inter[lower][1] < new[0]:
-            low.append(inter[lower])
-            lower+= 1
-            check_l = False
-        if inter[upper][0] > new[1]:
-            high.append(inter[upper])
-            upper-= 1
-            check_r = False
-
-        if inter[lower][0]< new[0] and inter[lower][1]> new[0]:
-            l = inter[lower][0]
-            lower+= 1
-            check_l = False
-        if inter[lower][0]> new[0] and l == None:
-            l = new[0]
-            lower+= 1
-            check_l = False
-
-        if inter[upper][0]<=new[1] and inter[upper][1]> new[1]:
-            h = inter[upper][1]
-            upper-= 1
-            check_r = False
-        if inter[upper][0]<new[1] and h == None:
-            h = inter[upper][1]
-            upper-= 1
-            check_r = False
-
-        if check_r == True and check_l == True:
-            upper-= 1
-            lower+=1
+def insert(inter, new):
+        result = []
+        for i in range(len(inter)):
+            if new[1] < inter[i][0]:
+                result.append(new)
+                return result + inter[i:]
+            elif new[0] > inter[i][1]:
+                result.append(inter[i])
+            else:
+                new = [min(new[0], inter[i][0]), max(new[1], inter[i][1])]
+        result.append(new)
+        return result
+        
             
+                
         
-    low.append([l,h])
-    low.extend(high[:])
-    return low
 
-#intervals = [[2,5],[6,9]]
-#new = [1,9]
-intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
-new = [5,12]
-print(insert_interval(intervals, new))
-             
-        
-             
 
+intervals = [[1,2], [3,4], [5,6],[7,9]]
+newInterval = [4,5]
+print(insert(intervals, newInterval))
