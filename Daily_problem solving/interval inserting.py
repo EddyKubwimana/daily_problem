@@ -26,12 +26,25 @@ def insert(inter, new):
                 new = [min(new[0], inter[i][0]), max(new[1], inter[i][1])]
         result.append(new)
         return result
-        
+
+def ins(inter, new):
+    result = []
+    for i in range (len(inter)):
+        if new[1]< inter[i][0]:
+            result.append(new)
+            return result+ inter[i:]
+        elif inter[i][1]< new[0]:
+            result.append(inter[i])
+        else:
+            new = [min(inter[i][0],new[0]), max(new[1], inter[i][1])]
+    result.append(new)
+    return result
             
                 
         
 
 
-intervals = [[1,2], [3,4], [5,6],[7,9]]
+intervals = [[1,2], [3,4], [10, 12],[5,6],[7,9]]
 newInterval = [4,5]
-print(insert(intervals, newInterval))
+#print(ins(intervals, newInterval))
+print(sorted(intervals))
