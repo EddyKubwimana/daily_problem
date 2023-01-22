@@ -1,4 +1,7 @@
 def find_triplets(arr):
+    '''
+    Return a triplet that sum up to zero
+    '''
     arr.sort()
     triplets = []
     for i in range(len(arr)-2):
@@ -22,6 +25,7 @@ def find_triplets(arr):
                 r -= 1
     return triplets
 
+#test data
 
 numbers = [1,2, -1, -1, 9, -9, 0,2]
 
