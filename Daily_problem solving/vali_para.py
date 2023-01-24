@@ -23,7 +23,7 @@ def valid(s):
 #2 nd method
 
 def valid_par(s):
-    para = {")":1,"(":1, "}":2,"{":2, "]":3,"[":3}
+    para = {")":1,"(":-1, "}":2,"{":2, "]":3,"[":3}
     summation = ""
     for i in s:
         summation+= str(para[i])
