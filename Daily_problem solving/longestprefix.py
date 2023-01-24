@@ -25,12 +25,7 @@ def longest_prefix(a,b):
             else:
                     pref = a[0]
                     pref = pref+longest_prefix(a[1:],b[1:])
-                    return pref
-        
-        
-        
-                    
-            
+                    return pref     
 
 # second approach:
 
@@ -50,20 +45,7 @@ def long(strs):
             while not i.startswith(pref):
                 pref = pref[:-1]
         return pref
-                
-             
-        
-     
-
-
-                    
-           
-       
-       
-       
-       
-                            
-            
+                                                 
 strs = ["eddy", "eddy", "edmond", "e"]
 #print(longest_pref(strs))
 #print(long(strs))
