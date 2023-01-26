@@ -4,36 +4,46 @@
 
 def findindex(listnum, number):
     if len(listnum) == 0:
-        return 0
-    elif listnum[0]> number:
-        return 0
-    elif listnum[len(listnum)-1] < number:
-        return len(listnum)
-    else:
-        mid = int(len(listnum)/2)+1
-        p1 = -1
-        p2 = 1
-        checker = True
+            return 0
+    if len(listnum)==1 and listnum[0]< number:
+            return 1
 
-        while checker:
-            if listnum[mid-p1]>= number and listnum[mid+p2] <= number:
-                return mid
-            elif listnum[mid]> number:
-                mid = mid +int(mid/2)+1
-                print(mid)
-            elif listnum[mid]< number:
-                mid = mid-int(mid/2)+1
-                print(mid)
-            else:
-                return 0
+    if len(listnum)==1 and listnum[0]> number:
+            return 0
+    keeper = 0
+    mid = int(len(listnum)/2 +1 )
+    lower, upper = listnum[:mid], listnum[mid:]
 
+    checker = True
+    while checker:
+      if lower[len(lower)-1]> number and upper[0]<= number:
+          return mid
+      elif lower[len(lower)-1] == number:
+          return len(lower)-1
+      elif upper[len(upper)-1] == number:
+          return len(upper)-1
+      elif lower[0] == number:
+          return 0
+      elif upper[0] == number:
+          return 0
+     
+      else:
+        
+        if lower[len(lower)-1] < number:
+            keeper += mid
+            mid = int(len(lower)/2 +1 )
+            lower,upper = upper[:mid], upper[mid:]
+            
+            
+        if lower[len(lower)-1] > number:
+             keeper += mid
+             mid = int(len(upper)/2 +1 )
+             lower,upper = upper[:mid], upper[mid:]
 
-def split(listnumber):
-    
-    length = len(listnumber)
+        
     
                   
-num = 3
+num = 1
 number = [ -1,1,2, 2.5, 3, 6,7,8]
 print(findindex(number, num))
 
